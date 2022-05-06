@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -78,12 +79,8 @@ WSGI_APPLICATION = 'rekr.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    'default': dj_database_url.config(default='postgres://nlgybromfzxcpt:20ff69fbf1a18474b94b7c290c659afaff9d48d7ebf2a7241c03f14efa5bc4f7@ec2-54-158-247-210.compute-1.amazonaws.com:5432/d1bll0qu0bck99')
     }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
