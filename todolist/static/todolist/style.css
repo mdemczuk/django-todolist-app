@@ -1,0 +1,28 @@
+.main-container {
+    margin-top: 50px !important;
+}
+
+.linked-tr {
+    cursor: pointer;
+}
+
+.input-label {
+    color: gray;
+    font-size: small;
+}
+
+.task-date {
+    max-width: 200px;
+}
+
+.p1 {
+    margin-top: 20px !important;
+}
+
+.p2 {
+    margin-top: 10px !important;
+}
+
+.text-button {
+    margin: 20px;
+}
