@@ -21,7 +21,7 @@ function addEmployeeToTable(employee) {
 
 
 function getEmployeeList() {
-    $.get("api/employee", function (data) {
+    $.get("/api/employee", function (data) {
         for (const employee of data) {
             addEmployeeToTable(employee);
         }
@@ -30,7 +30,7 @@ function getEmployeeList() {
 
 
 function addEmployee() {
-    $.post("api/employee/", {
+    $.post("/api/employee/", {
         "first_name": $("#first-name")[0].value,
         "last_name": $("#last-name")[0].value,
         "email": $("#email")[0].value,
@@ -90,7 +90,7 @@ function filterEmployeeTasks() {
 }
 
 function getEmployeeTasks(employeeID) {
-    $.get(`api/task_by_owner/?owner_id=${employeeID}`, function (responseData) {
+    $.get(`/api/task_by_owner/?owner_id=${employeeID}`, function (responseData) {
         for (const task of responseData) {
             addTaskToTable(task);
         }
@@ -99,7 +99,7 @@ function getEmployeeTasks(employeeID) {
 
 
 function addTask() {
-    $.post("api/task/", {
+    $.post("/api/task/", {
         "description": $("#task-description")[0].value,
         "status": $("#task-status")[0].value,
         "category": $("#task-category")[0].value,
@@ -115,7 +115,7 @@ function addTask() {
 function updateTaskStatus(taskID) {
     $.ajax({
         type: 'PATCH',
-        url: `api/task/${taskID}/`,
+        url: `/api/task/${taskID}/`,
         data: {
             "status": "Done",
         }
@@ -131,7 +131,7 @@ function updateTaskStatus(taskID) {
 
 function deleteTask(taskID) {
     $.ajax({
-        url: `api/task/${taskID}`,
+        url: `/api/task/${taskID}`,
         type: 'DELETE',
         success: function (result) {
             for (const row of $("#task-list")[0].rows) {
