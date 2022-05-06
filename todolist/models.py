@@ -25,7 +25,7 @@ class Task(models.Model):
         STATUS3 = "Done"
 
     description = models.TextField(max_length=400)
-    status = models.TextField(choices=Status.choices, default=Status.STATUS1) # remove later
+    status = models.TextField(choices=Status.choices)
     category = models.TextField(choices=Category.choices)
     due_date = models.DateField()
     owner = models.ForeignKey(Employee, on_delete=models.CASCADE)

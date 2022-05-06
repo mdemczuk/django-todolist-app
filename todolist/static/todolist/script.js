@@ -11,7 +11,7 @@ function clearEmployeeModalFields() {
 
 function addEmployeeToTable(employee) {
     $("#employee-list").append(
-        `<tr class="linked-tr" onclick="window.location='http://127.0.0.1:8000/employee/${employee.id}';">
+        `<tr class="linked-tr" onclick="window.location='employee/${employee.id}';">
             <th scope="row">${employee.id}</th>
             <td>${employee.first_name}</td>
             <td>${employee.last_name}</td>
@@ -21,7 +21,7 @@ function addEmployeeToTable(employee) {
 
 
 function getEmployeeList() {
-    $.get("http://127.0.0.1:8000/api/employee", function (data) {
+    $.get("api/employee", function (data) {
         for (const employee of data) {
             addEmployeeToTable(employee);
         }
@@ -30,7 +30,7 @@ function getEmployeeList() {
 
 
 function addEmployee() {
-    $.post("http://127.0.0.1:8000/api/employee/", {
+    $.post("api/employee/", {
         "first_name": $("#first-name")[0].value,
         "last_name": $("#last-name")[0].value,
         "email": $("#email")[0].value,
@@ -61,8 +61,10 @@ function addTaskToTable(task) {
             <td>${task.category}</td>
             <td>${task.status}</td>
             <td>${task.due_date}</td>
-            <td><button type="button" class="btn btn-primary float-end" style="margin-left:4px" onclick="deleteTask(${task.id})">Delete</button>
-                <button type="button" class="btn btn-primary float-end" onclick="updateTaskStatus(${task.id})">Done</button></td>
+            <td>
+                <button type="button" class="btn btn-primary float-end" style="margin-left:4px" onclick="deleteTask(${task.id})">Delete</button>
+                <button type="button" class="btn btn-primary float-end" onclick="updateTaskStatus(${task.id})">Done</button>
+            </td>
         </tr>`
     );
 }
@@ -75,26 +77,20 @@ function filterEmployeeTasks() {
                 pass = false;
             }
         }
-    
+
         if ($("#due-date-filter")[0].value != "") {
             if ($("#due-date-filter")[0].value != row.children[4].textContent) {
                 pass = false;
             }
         }
-    
-        if (!pass) {
-            debugger;
-            row.style.display = "none";
-        }
-        else {
-            row.style.display = "";
-        }
+
+        row.style.display = pass ? "" : "none";
     }
-    
+
 }
 
 function getEmployeeTasks(employeeID) {
-    $.get(`http://127.0.0.1:8000/api/task_by_owner/?owner_id=${employeeID}`, function (responseData) {
+    $.get(`api/task_by_owner/?owner_id=${employeeID}`, function (responseData) {
         for (const task of responseData) {
             addTaskToTable(task);
         }
@@ -103,7 +99,7 @@ function getEmployeeTasks(employeeID) {
 
 
 function addTask() {
-    $.post("http://127.0.0.1:8000/api/task/", {
+    $.post("api/task/", {
         "description": $("#task-description")[0].value,
         "status": $("#task-status")[0].value,
         "category": $("#task-category")[0].value,
@@ -119,7 +115,7 @@ function addTask() {
 function updateTaskStatus(taskID) {
     $.ajax({
         type: 'PATCH',
-        url: `http://127.0.0.1:8000/api/task/${taskID}/`,
+        url: `api/task/${taskID}/`,
         data: {
             "status": "Done",
         }
@@ -135,7 +131,7 @@ function updateTaskStatus(taskID) {
 
 function deleteTask(taskID) {
     $.ajax({
-        url: `http://127.0.0.1:8000/api/task/${taskID}`,
+        url: `api/task/${taskID}`,
         type: 'DELETE',
         success: function (result) {
             for (const row of $("#task-list")[0].rows) {

@@ -5,10 +5,16 @@
 <div class="container-xl main-container">
     <div class="container">
         <div class="row">
-            <div class="col"><p><h2>Employees list</h2></p></div>
-            <div class="col"><button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#add-employee-modal">Add
-                employee</button></div>
-          </div>
+            <div class="col">
+                <p>
+                <h2>Employees list</h2>
+                </p>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
+                    data-bs-target="#add-employee-modal">Add employee</button>
+            </div>
+        </div>
     </div>
     <div class="modal fade" id="add-employee-modal" tabindex="-1" aria-labelledby="add-employee-modal-label"
         aria-hidden="true">
@@ -66,9 +72,9 @@
     crossorigin="anonymous"></script>
 
 <script>
-    
+
     clearEmployeeModalFields();
     getEmployeeList();
-    
+
 </script>
 {% endblock %}
